@@ -1,0 +1,2 @@
+date,     puxada frente, remada aberta,fly, rosca alternada, extensora, leg press,panturilha, elevacao lateral
+02/1/2025,35,             20,          20,  4,               25,          10,     5 ,          3
