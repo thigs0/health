@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import datetime
+import matplotlib.dates as mdates
 import plotly.graph_objects as go
+
+plt.style.use('ggplot')
 
 peso = pd.read_csv('files/massa.txt')
 
@@ -21,6 +25,20 @@ fig.update_layout(
 # Salvando o gráfico como um arquivo HTML
 fig.write_html("image/massa_diaria.html")
 
+plt.scatter(dt, weight, marker='o', color='red')
+plt.ylabel('massa (Kg)')
+plt.title('Massa diária')
+plt.xlabel('Data')
+plt.legend()
+
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
+plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
+
+# Melhorar a visualização das labels no eixo X
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.savefig('image/massa_diaria.png', dpi=300)
 
 #exercicios de academia
 df = pd.read_csv('files/academia.txt')

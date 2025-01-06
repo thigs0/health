@@ -1,6 +1,5 @@
 # health
 Medidas de saúde
 
-<img src="image/massa_diaria.html" alt="Italian Trulli">
 
-![alt text](image/massa_diaria.html)
+![massa diária](image/massa_diaria.png)
