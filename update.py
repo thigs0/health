@@ -14,6 +14,7 @@ dt = pd.to_datetime(peso.iloc[:,0], format='%d/%m/%Y')
 fat = pd.read_csv('files/fat.txt')
 fat_v = fat.iloc[:, 1]
 fat_dt = pd.to_datetime(fat.iloc[:,0], format='%d/%m/%Y')
+fat_v_obj = np.ones(len(fat_v))*12
 
 muscular_mass = pd.read_csv('files/muscular_mass.txt')
 musc_v = muscular_mass.iloc[:,1]
@@ -85,11 +86,12 @@ plt.savefig('image/daily_muscular.png', dpi=300)
 plt.close()
 
 #body fat
-plt.plot(fat_dt, fat_v, color='black')
-plt.ylabel('body fat')
-plt.title('body fat')
-plt.xlabel('Data')
-#plt.legend()
+plt.plot(fat_dt, fat_v, color='red', label='data')
+plt.plot(fat_dt, fat_v_obj, color='black', label='objective')
+plt.ylabel('body fat (%)')
+plt.title('daily percentage of body fat')
+plt.xlabel('Date')
+plt.legend()
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
 plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
 # Melhorar a visualização das labels no eixo X
