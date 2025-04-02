@@ -5,7 +5,7 @@ health metrics
 
 ![daily mass](image/massa_diaria.png)
 
-![body fat](image/body_dat.png)
+![body fat](image/body_fat.png)
 
 ![muscular mass](image/daily_muscular.png)
 
