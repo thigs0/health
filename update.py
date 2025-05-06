@@ -21,6 +21,11 @@ musc_v = muscular_mass.iloc[:,1]
 musc_dt = pd.to_datetime(muscular_mass.iloc[:,0], format='%d/%m/%Y')
 musc_v_obj = np.ones(len(musc_v))*60
 
+water = pd.read_csv('files/water.txt')
+water_v = water.iloc[:,1]
+water_dt = pd.to_datetime(water.iloc[:,0], format='%d/%m/%Y')
+water_v_obj = np.ones(len(water_v))*60
+
 protein = pd.read_csv('files/protein.txt')
 protein_v=protein.iloc[:,1]
 protein_dt = pd.to_datetime(protein.iloc[:,0], format='%d/%m/%Y')
@@ -43,62 +48,167 @@ fig.update_layout(
 
 # Salvando o gráfico como um arquivo HTML
 #fig.write_html("image/massa_diaria.html")
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
 
-plt.plot(dt, weight, color='red')
-plt.plot(dt, objetive, color='black')
-plt.ylabel('massa (Kg)')
-plt.title('Massa diária')
-plt.xlabel('Data')
-#plt.legend()
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
-plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
-# Melhorar a visualização das labels no eixo X
-plt.xticks(rotation=45)
-plt.tight_layout()
+# Plot 1
+ax[0, 0].plot(dt, weight, color='red')
+ax[0, 0].plot(dt, objetive, color='black')
+ax[0, 0].set_ylabel('mass (Kg)')
+ax[0, 0].set_title('Daily Mass')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+
+# Plot 2
+ax[0, 1].plot(dt, weight.rolling(30).mean(), color='red')  # Média móvel em vez de soma/60
+ax[0, 1].set_ylabel('mass (Kg)')
+ax[0, 1].set_title('R1 Daily Mass (30d avg)')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+
+# Plot 3
+ax[1, 0].plot(dt, weight.rolling(90).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 0].set_ylabel('mass (Kg)')
+ax[1, 0].set_title('R3 Daily Mass (90d avg)')
+ax[1, 0].set_xlabel('Date')
+ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 0].tick_params(axis='x', rotation=45)
+
+# Plot 4
+ax[1, 1].plot(dt, weight.rolling(120).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 1].set_ylabel('mass (Kg)')
+ax[1, 1].set_title('R6 Daily Mass (120d avg)')
+ax[1, 1].set_xlabel('Date')
+ax[1, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 1].tick_params(axis='x', rotation=45)
+
+
+fig.tight_layout()
+
 plt.savefig('image/massa_diaria.png', dpi=300)
 plt.close()
 
 #protein
-plt.plot(protein_dt, protein_v, color='black')
-plt.ylabel('proteina (Kg)')
-plt.title('daily protein')
-plt.xlabel('Data')
-#plt.legend()
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
-plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
-# Melhorar a visualização das labels no eixo X
-plt.xticks(rotation=45)
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+
+# Plot 1
+ax[0, 0].plot(protein_dt, protein_v, color='red')
+ax[0, 0].set_ylabel('Protein (%)')
+ax[0, 0].set_title('Tax daily protein (%)')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+# Plot 2
+ax[0, 1].plot(protein_dt, protein_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('Protein (%)')
+ax[0, 1].set_title('R1 tax daily protein (%)')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+
 plt.tight_layout()
 plt.savefig('image/daily_protein.png', dpi=300)
 plt.close()
 
 #muscular mass
-plt.plot(musc_dt, musc_v, color='red', label='data')
-plt.plot(musc_dt, musc_v_obj, color='black',label='objective')
-musc_v_obj = np.ones(len(musc_v))*60
-plt.ylabel('muscular mass (Kg)')
-plt.title('daily muscular mass (Kg)')
-plt.xlabel('Date')
-plt.legend()
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
-plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
-# Melhorar a visualização das labels no eixo X
-plt.xticks(rotation=45)
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+
+# Plot 1
+ax[0, 0].plot(musc_dt, musc_v, color='red')
+ax[0, 0].plot(musc_dt, musc_v_obj, color='red')
+ax[0, 0].set_ylabel('muscular mass (Kg)')
+ax[0, 0].set_title('Daily muscular mass (Kg)')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+# Plot 2
+ax[0, 1].plot(musc_dt, musc_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('muscular mass (Kg)')
+ax[0, 1].set_title('R1 Daily muscular mass (Kg)')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
 plt.tight_layout()
 plt.savefig('image/daily_muscular.png', dpi=300)
 plt.close()
 
 #body fat
-plt.plot(fat_dt, fat_v, color='red', label='data')
-plt.plot(fat_dt, fat_v_obj, color='black', label='objective')
-plt.ylabel('body fat (%)')
-plt.title('daily percentage of body fat')
-plt.xlabel('Date')
-plt.legend()
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))  # Exemplo: 'Jan 2023'
-plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Colocar um marcador por mês
-# Melhorar a visualização das labels no eixo X
-plt.xticks(rotation=45)
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+# Plot 1
+ax[0, 0].plot(fat_dt, fat_v, color='red')
+ax[0, 0].plot(fat_dt, fat_v_obj, color='red', label="objective")
+ax[0, 0].set_ylabel('Body fat (%)')
+ax[0, 0].set_title('Daily percentage of body fat')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+## Plot 1
+ax[0, 1].plot(fat_dt, fat_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('Body fat (%)')
+ax[0, 1].set_title('R1 Daily percentage of body fat')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.savefig('image/body_fat.png', dpi=300)
+plt.close()
+
+#water
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+
+# Plot 1
+ax[0, 0].plot(water_dt, water_v, color='red')
+ax[0, 0].plot(water_dt, water_v_obj, color='red')
+ax[0, 0].set_ylabel('water (Kg)')
+ax[0, 0].set_title('Daily water')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+# Plot 2
+ax[0, 1].plot(water_dt, water_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('water')
+ax[0, 1].set_title('R1 Daily water')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+plt.tight_layout()
+plt.savefig('image/daily_water.png', dpi=300)
+plt.close()
+
+#body fat
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+# Plot 1
+ax[0, 0].plot(fat_dt, fat_v, color='red')
+ax[0, 0].plot(fat_dt, fat_v_obj, color='red', label="objective")
+ax[0, 0].set_ylabel('Body fat (%)')
+ax[0, 0].set_title('Daily percentage of body fat')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+## Plot 1
+ax[0, 1].plot(fat_dt, fat_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('Body fat (%)')
+ax[0, 1].set_title('R1 Daily percentage of body fat')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+
 plt.tight_layout()
 plt.savefig('image/body_fat.png', dpi=300)
 plt.close()
