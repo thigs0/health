@@ -162,6 +162,16 @@ ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
 ax[0, 1].tick_params(axis='x', rotation=45)
 
+# Plot 3
+ax[1, 0].plot(fat_dt, fat_v.rolling(90).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 0].set_ylabel('Body fat (%)')
+ax[1, 0].set_title('R3 Daily percentage of body fat (90d avg)')
+ax[1, 0].set_xlabel('Date')
+ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 0].tick_params(axis='x', rotation=45)
+
+
 plt.tight_layout()
 plt.savefig('image/body_fat.png', dpi=300)
 plt.close()
@@ -171,7 +181,6 @@ fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado 
 
 # Plot 1
 ax[0, 0].plot(water_dt, water_v, color='red')
-ax[0, 0].plot(water_dt, water_v_obj, color='red')
 ax[0, 0].set_ylabel('water (Kg)')
 ax[0, 0].set_title('Daily water')
 ax[0, 0].set_xlabel('Date')
