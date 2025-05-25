@@ -14,3 +14,11 @@ health metrics
 
 ### protein at body vision
 ![daily protein](image/daily_protein.png)
+
+### body water mass
+![water mass](image/daily_water.png)
+
+### Viceral fat
+![viceral mass](image/viceral_fat.png)
+
+

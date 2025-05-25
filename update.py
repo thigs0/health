@@ -34,6 +34,7 @@ viceral_fat = pd.read_csv('files/viceral_fat.txt')
 viceral_v=viceral_fat.iloc[:,1]
 viceral_dt = pd.to_datetime(viceral_fat.iloc[:,0], format='%d/%m/%Y')
 
+
 objetive = np.ones(len(dt))*80
 
 fig = go.Figure(data=go.Scatter(x=dt, y=weight, mode='markers', name='massa ao longo do tempo'))
@@ -211,6 +212,29 @@ ax[0, 1].tick_params(axis='x', rotation=45)
 
 plt.tight_layout()
 plt.savefig('image/body_fat.png', dpi=300)
+plt.close()
+
+#Viceral fat
+fig, ax = plt.subplots(2, 2, figsize=(12, 8))  # Adiciona um tamanho apropriado à figura
+# Plot 1
+ax[0, 0].plot(viceral_dt, viceral_v, color='red')
+ax[0, 0].set_ylabel('viceral fat')
+ax[0, 0].set_title('Daily viceral fat')
+ax[0, 0].set_xlabel('Date')
+ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 0].tick_params(axis='x', rotation=45)
+## Plot 1
+ax[0, 1].plot(fat_dt, fat_v.rolling(30).mean(), color='red')
+ax[0, 1].set_ylabel('Viceral fat')
+ax[0, 1].set_title('R1 Daily viceral fat')
+ax[0, 1].set_xlabel('Date')
+ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[0, 1].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.savefig('image/viceral_fat.png', dpi=300)
 plt.close()
 
 
