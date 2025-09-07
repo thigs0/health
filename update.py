@@ -197,11 +197,20 @@ ax[0, 1].tick_params(axis='x', rotation=45)
 # Plot 3
 ax[1, 0].plot(fat_dt, fat_v.rolling(90).mean(), color='red')  # Média móvel em vez de soma/60
 ax[1, 0].set_ylabel('Body fat (%)')
-ax[1, 0].set_title('R3 Daily Mass (90d avg)')
+ax[1, 0].set_title('R3 Daily percentage of body fat (90d avg)')
 ax[1, 0].set_xlabel('Date')
 ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
 ax[1, 0].tick_params(axis='x', rotation=45)
+# Plot 4
+ax[1, 1].plot(fat_dt, fat_v.rolling(120).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 1].set_ylabel('Body dat (%)')
+ax[1, 1].set_title('R6 daily percentage of body fat  (120d avg)')
+ax[1, 1].set_xlabel('Date')
+ax[1, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 1].tick_params(axis='x', rotation=45)
+
 
 plt.tight_layout()
 plt.savefig('image/body_fat.png', dpi=300)
@@ -237,6 +246,15 @@ ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
 ax[1, 0].tick_params(axis='x', rotation=45)
 
+# Plot 4
+ax[1, 1].plot(water_dt, water_v.rolling(120).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 1].set_ylabel('Water mass (Kg)')
+ax[1, 1].set_title('R6 daily water mass (120d avg)')
+ax[1, 1].set_xlabel('Date')
+ax[1, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 1].tick_params(axis='x', rotation=45)
+
 
 plt.tight_layout()
 plt.savefig('image/daily_water.png', dpi=300)
@@ -262,6 +280,24 @@ ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
 ax[0, 1].tick_params(axis='x', rotation=45)
 
+# Plot 3
+ax[1, 0].plot(fat_dt, fat_v.rolling(90).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 0].set_ylabel('Body fat (%)')
+ax[1, 0].set_title('R3 Daily percentage of body dat (mean 90 days)t')
+ax[1, 0].set_xlabel('Date')
+ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 0].tick_params(axis='x', rotation=45)
+
+# Plot 4
+ax[1, 1].plot(fat_dt, fat_v.rolling(120).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 1].set_ylabel('Body fat (%)')
+ax[1, 1].set_title('R6 daily percentage of body fat (120d avg)')
+ax[1, 1].set_xlabel('Date')
+ax[1, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 1].tick_params(axis='x', rotation=45)
+
 plt.tight_layout()
 plt.savefig('image/body_fat.png', dpi=300)
 plt.close()
@@ -276,8 +312,8 @@ ax[0, 0].set_xlabel('Date')
 ax[0, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[0, 0].xaxis.set_major_locator(mdates.MonthLocator())
 ax[0, 0].tick_params(axis='x', rotation=45)
-## Plot 1
-ax[0, 1].plot(fat_dt, fat_v.rolling(30).mean(), color='red')
+## Plot 2
+ax[0, 1].plot(viceral_dt, viceral_v.rolling(30).mean(), color='red')
 ax[0, 1].set_ylabel('Viceral fat')
 ax[0, 1].set_title('R1 Daily viceral fat')
 ax[0, 1].set_xlabel('Date')
@@ -285,9 +321,24 @@ ax[0, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
 ax[0, 1].xaxis.set_major_locator(mdates.MonthLocator())
 ax[0, 1].tick_params(axis='x', rotation=45)
 
+# Plot 3
+ax[1, 0].plot(viceral_dt, viceral_v.rolling(90).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 0].set_ylabel('Viceral fat')
+ax[1, 0].set_title('R3 Daily viceral fat (mean 90 days)t')
+ax[1, 0].set_xlabel('Date')
+ax[1, 0].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 0].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 0].tick_params(axis='x', rotation=45)
+# Plot 4
+ax[1, 1].plot(viceral_dt, viceral_v.rolling(120).mean(), color='red')  # Média móvel em vez de soma/60
+ax[1, 1].set_ylabel('Viceral fat (Kg)')
+ax[1, 1].set_title('R6 daily viceral fat (120d avg)')
+ax[1, 1].set_xlabel('Date')
+ax[1, 1].xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+ax[1, 1].xaxis.set_major_locator(mdates.MonthLocator())
+ax[1, 1].tick_params(axis='x', rotation=45)
+
 plt.tight_layout()
 plt.savefig('image/viceral_fat.png', dpi=300)
 plt.close()
-
-
 
